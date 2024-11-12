@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class EspecieRequestDTO {
     @NotNull(message = "El id de la especie no puede ser null")
-    private long idEspecie;
+    private Long idEspecie;
     @NotNull(message = "El codigo CVSA no puede ser null")
     private String codigoCVSA;
     @NotNull(message = "La denominación no puede ser null")
@@ -22,7 +22,7 @@ public class EspecieRequestDTO {
     private int laminaMinima;
 //    @Min(value = 0, message = "El precio no puede ser negativo")
     private Double precio;
-    private String cafdi;
+    private String cafci;
     private String cuentaDeEmision;
     private String estado;
     private long idEmisor;

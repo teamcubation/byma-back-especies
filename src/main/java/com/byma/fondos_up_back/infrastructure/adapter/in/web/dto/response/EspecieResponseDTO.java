@@ -13,12 +13,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EspecieResponseDTO {
-    private long idEspecie;
+    private Long idEspecie;
     private String codigoCVSA;
     private String denominacion;
     private int laminaMinima;
     private Double precio;
-    private String cafdi;
+    private String cafci;
     private String cuentaDeEmision;
     private String estado;
     private long idEmisor;

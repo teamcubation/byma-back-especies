@@ -1,9 +1,13 @@
 package com.byma.fondos_up_back.infrastructure.adapter.in.web.controller.impl;
 
 import com.byma.fondos_up_back.application.port.in.EspecieInPort;
+import com.byma.fondos_up_back.application.service.exception.AtributosNulosException;
 import com.byma.fondos_up_back.application.service.exception.EspecieConIdExistenteException;
-import com.byma.fondos_up_back.application.validation.Validador;
+import com.byma.fondos_up_back.application.service.exception.EspecieNoEncontradaException;
+import com.byma.fondos_up_back.application.service.exception.ObjetoEnviadoNuloException;
+import com.byma.fondos_up_back.util.validation.Validador;
 import com.byma.fondos_up_back.domain.model.Especie;
+import com.byma.fondos_up_back.infrastructure.adapter.in.web.controller.ApiEspecie;
 import com.byma.fondos_up_back.infrastructure.adapter.in.web.dto.request.EspecieRequestDTO;
 import com.byma.fondos_up_back.infrastructure.adapter.in.web.dto.response.EspecieResponseDTO;
 import com.byma.fondos_up_back.infrastructure.adapter.in.web.mapper.EspecieControllerMapper;
@@ -24,7 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/especies")
 @Slf4j
-public class EspecieController {
+public class EspecieController implements ApiEspecie {
 
     private final EspecieInPort especieInPort;
 
@@ -33,10 +37,9 @@ public class EspecieController {
     }
 
     @PostMapping("")
-    public ResponseEntity<EspecieResponseDTO> crear(@RequestBody @Valid EspecieRequestDTO especieRequestDTO) throws EspecieConIdExistenteException {
-
+    public ResponseEntity<EspecieResponseDTO> crear(@RequestBody @Valid EspecieRequestDTO especieRequestDTO) throws AtributosNulosException, EspecieConIdExistenteException, ObjetoEnviadoNuloException {
         log.info("Solicitud para crear un especie: {}", especieRequestDTO);
-        Validador.validadorParametrosNull(especieRequestDTO);
+        Validador.validarObjetoNotNull(especieRequestDTO);
         Especie especieCreada = especieInPort.crear(EspecieControllerMapper.especieRequestDtoAEspecie(especieRequestDTO));
         log.info("Creacion de especie finalizada: {}", especieCreada);
 
@@ -44,7 +47,7 @@ public class EspecieController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<EspecieResponseDTO>> listarEspecies() {
+    public ResponseEntity<List<EspecieResponseDTO>> listarEspecies() throws ObjetoEnviadoNuloException {
 
         log.info("Solicitud para obtener todas las especies");
         List<Especie> especies = especieInPort.listarEspecies();
@@ -53,12 +56,11 @@ public class EspecieController {
         return ResponseEntity.ok().body(especies.stream().map(EspecieControllerMapper::especieAEspecieResponseDTO).toList());
     }
 
-
-    @GetMapping("/{idOrganizacionEspecie}")
-    public ResponseEntity<EspecieResponseDTO> obtenerPorIdEspecie(@PathVariable Long idEspecie) {
+    @GetMapping("/{idEspecie}")
+    public ResponseEntity<EspecieResponseDTO> obtenerPorIdEspecie(@PathVariable Long idEspecie) throws AtributosNulosException, EspecieNoEncontradaException, ObjetoEnviadoNuloException {
 
         log.info("Solicitud para obtener especie por id: {}", idEspecie);
-        Validador.validadorParametrosNull(idEspecie);
+        Validador.validarIdNull(idEspecie);
         Especie especie = especieInPort.obtenerPorId(idEspecie);
         log.info("Finalizacion de obtener especie por id: {}", especie);
 
@@ -66,10 +68,11 @@ public class EspecieController {
     }
 
     @PutMapping("/{idEspecie}")
-    public ResponseEntity<EspecieResponseDTO> actualizar(@PathVariable Long idEspecie, @RequestBody @Valid EspecieRequestDTO especieRequestDTO) {
+    public ResponseEntity<EspecieResponseDTO> actualizar(@PathVariable Long idEspecie, @RequestBody @Valid EspecieRequestDTO especieRequestDTO) throws AtributosNulosException, EspecieConIdExistenteException, ObjetoEnviadoNuloException, EspecieNoEncontradaException {
 
         log.info("Solicitud para actualizar especie por id: {}, datos a actualizar: {}",idEspecie, especieRequestDTO);
-        Validador.validadorParametrosNull(idEspecie, especieRequestDTO);
+        Validador.validarIdNull(idEspecie);
+        Validador.validarObjetoNotNull(especieRequestDTO);
         Especie especieActualizado = especieInPort.actualizar(idEspecie, EspecieControllerMapper.especieRequestDtoAEspecie(especieRequestDTO));
         log.info("Finalizacion de actualizacion de especie, especie actualizado: {}", especieActualizado);
 
@@ -77,10 +80,10 @@ public class EspecieController {
     }
 
     @DeleteMapping("/{idEspecie}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long idEspecie) {
+    public ResponseEntity<Void> eliminar(@PathVariable Long idEspecie) throws AtributosNulosException, EspecieNoEncontradaException, ObjetoEnviadoNuloException {
 
         log.info("Solicitud para eliminar especie con id: {}", idEspecie);
-        Validador.validadorParametrosNull(idEspecie);
+        Validador.validarIdNull(idEspecie);
         especieInPort.eliminar(idEspecie);
         log.info("Finalizacion de eliminacion de especie con id: {}", idEspecie);
 

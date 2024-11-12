@@ -1,23 +1,25 @@
 package com.byma.fondos_up_back.infrastructure.adapter.out.persistance.mapper;
 
-import com.byma.fondos_up_back.application.validation.Validador;
+import com.byma.fondos_up_back.application.service.exception.ObjetoEnviadoNuloException;
+import com.byma.fondos_up_back.util.validation.Validador;
 import com.byma.fondos_up_back.domain.model.Especie;
 import com.byma.fondos_up_back.infrastructure.adapter.out.persistance.entity.EspecieEntity;
+import lombok.SneakyThrows;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class EspecieMapper {
 
-    public static EspecieEntity especieAEspecieEntity(Especie especie) {
-        Validador.validadorParametrosNull(especie);
+    public static EspecieEntity especieAEspecieEntity(Especie especie)  {
         return EspecieEntity.builder()
                 .idEspecie(especie.getIdEspecie())
                 .codigoCVSA(especie.getCodigoCVSA())
                 .denominacion(especie.getDenominacion())
                 .laminaMinima(especie.getLaminaMinima())
                 .precio(especie.getPrecio())
-                .cafdi(especie.getCafdi())
+                .cafci(especie.getCafci())
                 .cuentaDeEmision(especie.getCuentaDeEmision())
                 .estado(especie.getEstado())
                 .idEmisor(especie.getIdEmisor())
@@ -34,15 +36,14 @@ public class EspecieMapper {
     }
 
 
-    public static Especie especieEntityAEspecie(EspecieEntity especieEntity) {
-        Validador.validadorParametrosNull(especieEntity);
+    public static Especie especieEntityAEspecie(EspecieEntity especieEntity) throws ObjetoEnviadoNuloException {
         return Especie.builder()
                 .idEspecie(especieEntity.getIdEspecie())
                 .codigoCVSA(especieEntity.getCodigoCVSA())
                 .denominacion(especieEntity.getDenominacion())
                 .laminaMinima(especieEntity.getLaminaMinima())
                 .precio(especieEntity.getPrecio())
-                .cafdi(especieEntity.getCafdi())
+                .cafci(especieEntity.getCafci())
                 .cuentaDeEmision(especieEntity.getCuentaDeEmision())
                 .estado(especieEntity.getEstado())
                 .idEmisor(especieEntity.getIdEmisor())
@@ -57,9 +58,14 @@ public class EspecieMapper {
                 .fechaAlta(especieEntity.getFechaAlta())
                 .build();
     }
-    public static List<Especie> especieEntitiesAEspecies(List<EspecieEntity> especieEntities) {
-    return especieEntities.stream()
-            .map(EspecieMapper::especieEntityAEspecie)
-            .collect(Collectors.toList());
+
+    public static List<Especie> especieEntitiesAEspecies(List<EspecieEntity> especieEntities) throws ObjetoEnviadoNuloException {
+        List<Especie> especies = new ArrayList<>();
+
+        for (EspecieEntity especieEntity : especieEntities) {
+            especies.add(EspecieMapper.especieEntityAEspecie(especieEntity));
+        }
+
+        return especies;
     }
 }
