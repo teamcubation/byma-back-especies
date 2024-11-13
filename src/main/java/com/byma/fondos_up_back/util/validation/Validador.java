@@ -5,8 +5,7 @@ import com.byma.fondos_up_back.application.service.exception.ObjetoEnviadoNuloEx
 import com.byma.fondos_up_back.domain.model.Especie;
 
 public class Validador {
-
-
+    
     public static void validarIdNull(Long idEspecie) throws AtributosNulosException {
         if (idEspecie == null) {
             throw new AtributosNulosException("El id no puede ser null");
@@ -22,6 +21,7 @@ public class Validador {
             throw new ObjetoEnviadoNuloException("El objeto enviado no puede ser nulo.");
         }
     }
+
     public static void validarAtributosNulos(Especie especie) throws AtributosNulosException {
         if (especie.getIdEspecie() == null|| especie.getCodigoCVSA() == null || especie.getDenominacion() == null
         || especie.getPlazoDeLiquidacion() == null){

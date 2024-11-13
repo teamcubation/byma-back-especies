@@ -5,10 +5,16 @@ import com.byma.fondos_up_back.application.service.exception.EspecieConIdExisten
 import com.byma.fondos_up_back.application.service.exception.EspecieNoEncontradaException;
 import com.byma.fondos_up_back.application.service.exception.ObjetoEnviadoNuloException;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -36,11 +42,28 @@ public class GlobalExceptionHandler {
         return this.createErrorMessageResponse(exception, request, HttpStatus.CONFLICT);
     }
 
-
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ErrorMessageResponse handleException(Exception exception, HttpServletRequest request) {
         return this.createErrorMessageResponse(exception, request, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<?> handleMethodArgumentNotValidException(MethodArgumentNotValidException e, HttpServletRequest request) {
+        ErrorMessageResponse errorMessageResponse = ConstruirErrorMessageResponseDeValidacion(e, request);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessageResponse);
+    }
+
+    private ErrorMessageResponse ConstruirErrorMessageResponseDeValidacion(MethodArgumentNotValidException e, HttpServletRequest request) {
+        BindingResult result = e.getBindingResult();
+        return ErrorMessageResponse.builder()
+                .exception(e.getClass().getName())
+                .message("Error")
+                .status(HttpStatus.BAD_REQUEST.value())
+                .path(request.getRequestURI())
+                .method(request.getMethod())
+                .details(result.getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage)
+                        .collect(Collectors.toList())).build();
     }
 
     private ErrorMessageResponse createErrorMessageResponse(Exception exception, HttpServletRequest request, HttpStatus status) {
