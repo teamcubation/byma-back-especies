@@ -12,6 +12,7 @@ import com.byma.fondos_up_back.infrastructure.adapter.in.web.dto.request.Especie
 import com.byma.fondos_up_back.infrastructure.adapter.in.web.dto.response.EspecieResponseDTO;
 import com.byma.fondos_up_back.infrastructure.adapter.in.web.mapper.EspecieControllerMapper;
 import jakarta.validation.Valid;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

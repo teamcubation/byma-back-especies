@@ -12,8 +12,9 @@ public class Validador {
         }
     }
 
-    public static boolean validarEspecie(Especie especie){
-        return especie == null;
+    public static void validarEspecie(Especie especie) throws ObjetoEnviadoNuloException, AtributosNulosException {
+        validarObjetoNotNull(especie);
+        validarAtributosNulos(especie);
     }
 
     public static void validarObjetoNotNull(Object object) throws ObjetoEnviadoNuloException {
@@ -23,7 +24,7 @@ public class Validador {
     }
 
     public static void validarAtributosNulos(Especie especie) throws AtributosNulosException {
-        if (especie.getIdEspecie() == null|| especie.getCodigoCVSA() == null || especie.getDenominacion() == null
+        if (especie.getIdEspecie() == 0 || especie.getCodigoCVSA() == null || especie.getDenominacion() == null
         || especie.getPlazoDeLiquidacion() == null){
             throw new AtributosNulosException("Error. atributos nulos");
         }

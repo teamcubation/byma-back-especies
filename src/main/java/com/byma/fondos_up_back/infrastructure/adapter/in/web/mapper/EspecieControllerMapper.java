@@ -4,15 +4,15 @@ import com.byma.fondos_up_back.application.service.exception.ObjetoEnviadoNuloEx
 import com.byma.fondos_up_back.domain.model.Especie;
 import com.byma.fondos_up_back.infrastructure.adapter.in.web.dto.request.EspecieRequestDTO;
 import com.byma.fondos_up_back.infrastructure.adapter.in.web.dto.response.EspecieResponseDTO;
-import com.byma.fondos_up_back.infrastructure.adapter.out.persistance.entity.EspecieEntity;
-import com.byma.fondos_up_back.infrastructure.adapter.out.persistance.mapper.EspecieMapper;
+import com.byma.fondos_up_back.util.validation.Validador;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EspecieControllerMapper {
 
-    public static Especie especieRequestDtoAEspecie(EspecieRequestDTO especieRequestDTO) {
+    public static Especie especieRequestDtoAEspecie(EspecieRequestDTO especieRequestDTO) throws ObjetoEnviadoNuloException {
+        Validador.validarObjetoNotNull(especieRequestDTO);
         return Especie.builder()
                 .idEspecie(especieRequestDTO.getIdEspecie())
                 .codigoCVSA(especieRequestDTO.getCodigoCVSA())
@@ -35,7 +35,8 @@ public class EspecieControllerMapper {
                 .build();
     }
 
-    public static EspecieResponseDTO especieAEspecieResponseDTO(Especie especie) {
+    public static EspecieResponseDTO especieAEspecieResponseDTO(Especie especie) throws ObjetoEnviadoNuloException {
+        Validador.validarObjetoNotNull(especie);
         return EspecieResponseDTO.builder()
                 .idEspecie(especie.getIdEspecie())
                 .codigoCVSA(especie.getCodigoCVSA())
@@ -58,7 +59,7 @@ public class EspecieControllerMapper {
                 .build();
     }
 
-    public static List<EspecieResponseDTO> especiesAEspeciesResponseDTO(List<Especie> especies) {
+    public static List<EspecieResponseDTO> especiesAEspeciesResponseDTO(List<Especie> especies) throws ObjetoEnviadoNuloException {
         List<EspecieResponseDTO> especiesResponses = new ArrayList<>();
 
         for (Especie especie : especies) {

@@ -25,11 +25,8 @@ public class EspecieService implements EspecieInPort {
 
     @Override
     public Especie crear(Especie especie) throws EspecieConIdExistenteException, ObjetoEnviadoNuloException, AtributosNulosException {
-        Validador.validarObjetoNotNull(especie);
-        Validador.validarAtributosNulos(especie);
-        if (validarIdExistente(especie.getIdEspecie())) {
-            throw new EspecieConIdExistenteException("Error al crear: ID existente");
-        }
+        Validador.validarEspecie(especie);
+        validarEspecieNoExista(especie.getIdEspecie());
         return especieOutPort.crear(especie);
     }
 
@@ -41,7 +38,7 @@ public class EspecieService implements EspecieInPort {
     public Especie obtenerPorId(Long idEspecie) throws EspecieNoEncontradaException, AtributosNulosException, ObjetoEnviadoNuloException {
         Validador.validarIdNull(idEspecie);
         Especie especieEncontrada = especieOutPort.obtenerPorId(idEspecie);
-        if (Validador.validarEspecie(especieEncontrada)) {
+        if (especieEncontrada == null) {
             throw new EspecieNoEncontradaException("La especie buscada por id no existe en el sistema.");
         }
         return especieEncontrada;
@@ -50,15 +47,12 @@ public class EspecieService implements EspecieInPort {
     @Override
     public Especie actualizar(Long idEspecie, Especie especie) throws AtributosNulosException, EspecieConIdExistenteException, ObjetoEnviadoNuloException, EspecieNoEncontradaException {
         Validador.validarIdNull(idEspecie);
-        if (noExisteIdEspecie(idEspecie)) {
+        if (!validarIdExistente(idEspecie)) {
             throw new EspecieNoEncontradaException("La especie buscada por id no existe en el sistema.");
         }
-        Validador.validarObjetoNotNull(especie);
-        Validador.validarAtributosNulos(especie);
+        Validador.validarEspecie(especie);
         if (!idEspecie.equals(especie.getIdEspecie())) {
-            if (validarIdExistente(especie.getIdEspecie())) {
-                throw new EspecieConIdExistenteException("Ya existe una especie con ese ID.");
-            }
+            validarEspecieNoExista(especie.getIdEspecie());
         }
         especie.setIdEspecie(idEspecie);
         return especieOutPort.actualizar(especie);
@@ -67,7 +61,7 @@ public class EspecieService implements EspecieInPort {
     @Override
     public void eliminar(Long idEspecie) throws AtributosNulosException, EspecieNoEncontradaException, ObjetoEnviadoNuloException {
         Validador.validarIdNull(idEspecie);
-        if (noExisteIdEspecie(idEspecie)) {
+        if (!validarIdExistente(idEspecie)) {
             throw new EspecieNoEncontradaException("La especie buscada por id no existe en el sistema.");
         }
         especieOutPort.eliminar(idEspecie);
@@ -76,9 +70,10 @@ public class EspecieService implements EspecieInPort {
     private boolean validarIdExistente(long idEspecie) {
         return especieOutPort.existeElID(idEspecie);
     }
-
-    private boolean noExisteIdEspecie(Long idEspecie) {
-        return !especieOutPort.existeElID(idEspecie);
+    private void validarEspecieNoExista(long idEspecie) throws EspecieConIdExistenteException {
+        if (validarIdExistente(idEspecie)) {
+            throw new EspecieConIdExistenteException("Ya existe una especie con ese ID.");
+        }
     }
 
 }

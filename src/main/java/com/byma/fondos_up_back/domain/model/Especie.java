@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Especie {
-    private Long idEspecie;
+    private long idEspecie;
     private String codigoCVSA;
     private String denominacion;
     private int laminaMinima;
