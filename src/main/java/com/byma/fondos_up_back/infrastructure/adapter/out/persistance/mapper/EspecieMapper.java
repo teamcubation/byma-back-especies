@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 
 public class EspecieMapper {
 
-    public static EspecieEntity especieAEspecieEntity(Especie especie)  {
+    public static EspecieEntity especieAEspecieEntity(Especie especie) throws ObjetoEnviadoNuloException {
+        Validador.validarObjetoNotNull(especie);
         return EspecieEntity.builder()
                 .idEspecie(especie.getIdEspecie())
                 .codigoCVSA(especie.getCodigoCVSA())
@@ -37,6 +38,7 @@ public class EspecieMapper {
 
 
     public static Especie especieEntityAEspecie(EspecieEntity especieEntity) throws ObjetoEnviadoNuloException {
+        Validador.validarObjetoNotNull(especieEntity);
         return Especie.builder()
                 .idEspecie(especieEntity.getIdEspecie())
                 .codigoCVSA(especieEntity.getCodigoCVSA())

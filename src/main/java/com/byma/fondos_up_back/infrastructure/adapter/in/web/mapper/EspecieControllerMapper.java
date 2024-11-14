@@ -1,12 +1,15 @@
 package com.byma.fondos_up_back.infrastructure.adapter.in.web.mapper;
 
+import com.byma.fondos_up_back.application.service.exception.ObjetoEnviadoNuloException;
 import com.byma.fondos_up_back.domain.model.Especie;
 import com.byma.fondos_up_back.infrastructure.adapter.in.web.dto.request.EspecieRequestDTO;
 import com.byma.fondos_up_back.infrastructure.adapter.in.web.dto.response.EspecieResponseDTO;
+import com.byma.fondos_up_back.util.validation.Validador;
 
 public class EspecieControllerMapper {
 
-    public static Especie especieRequestDtoAEspecie(EspecieRequestDTO especieRequestDTO) {
+    public static Especie especieRequestDtoAEspecie(EspecieRequestDTO especieRequestDTO) throws ObjetoEnviadoNuloException {
+        Validador.validarObjetoNotNull(especieRequestDTO);
         return Especie.builder()
                 .idEspecie(especieRequestDTO.getIdEspecie())
                 .codigoCVSA(especieRequestDTO.getCodigoCVSA())
@@ -29,7 +32,8 @@ public class EspecieControllerMapper {
                 .build();
     }
 
-    public static EspecieResponseDTO especieAEspecieResponseDTO(Especie especie) {
+    public static EspecieResponseDTO especieAEspecieResponseDTO(Especie especie) throws ObjetoEnviadoNuloException {
+        Validador.validarObjetoNotNull(especie);
         return EspecieResponseDTO.builder()
                 .idEspecie(especie.getIdEspecie())
                 .codigoCVSA(especie.getCodigoCVSA())

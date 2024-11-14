@@ -53,7 +53,6 @@ public class EspecieOutAdapter implements EspecieOutPort {
     @Override
     public void eliminar(Long idEspecie) throws AtributosNulosException {
         Validador.validarIdNull(idEspecie);
-
         especieRepository.deleteById(idEspecie);
     }
     @Override
