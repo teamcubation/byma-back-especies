@@ -12,7 +12,7 @@ public class Validador {
         }
     }
 
-    public static boolean validarEspecieNull(Especie especie){
+    public static boolean validarEspecie(Especie especie){
         return especie == null;
     }
 

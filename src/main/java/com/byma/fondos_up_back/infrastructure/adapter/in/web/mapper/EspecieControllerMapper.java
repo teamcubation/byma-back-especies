@@ -1,8 +1,14 @@
 package com.byma.fondos_up_back.infrastructure.adapter.in.web.mapper;
 
+import com.byma.fondos_up_back.application.service.exception.ObjetoEnviadoNuloException;
 import com.byma.fondos_up_back.domain.model.Especie;
 import com.byma.fondos_up_back.infrastructure.adapter.in.web.dto.request.EspecieRequestDTO;
 import com.byma.fondos_up_back.infrastructure.adapter.in.web.dto.response.EspecieResponseDTO;
+import com.byma.fondos_up_back.infrastructure.adapter.out.persistance.entity.EspecieEntity;
+import com.byma.fondos_up_back.infrastructure.adapter.out.persistance.mapper.EspecieMapper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EspecieControllerMapper {
 
@@ -50,5 +56,15 @@ public class EspecieControllerMapper {
                 .movimiento(especie.isMovimiento())
                 .fechaAlta(especie.getFechaAlta())
                 .build();
+    }
+
+    public static List<EspecieResponseDTO> especiesAEspeciesResponseDTO(List<Especie> especies) {
+        List<EspecieResponseDTO> especiesResponses = new ArrayList<>();
+
+        for (Especie especie : especies) {
+            especiesResponses.add(EspecieControllerMapper.especieAEspecieResponseDTO(especie));
+        }
+
+        return especiesResponses;
     }
 }

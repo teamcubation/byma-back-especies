@@ -51,9 +51,10 @@ public class EspecieController implements ApiEspecie {
 
         log.info("Solicitud para obtener todas las especies");
         List<Especie> especies = especieInPort.listarEspecies();
+        List<EspecieResponseDTO> especiesResponses = EspecieControllerMapper.especiesAEspeciesResponseDTO(especies);
         log.info("Finalizacion de la solicitud para obtener todas las especies");
 
-        return ResponseEntity.ok().body(especies.stream().map(EspecieControllerMapper::especieAEspecieResponseDTO).toList());
+        return ResponseEntity.ok().body(especiesResponses);
     }
 
     @GetMapping("/{idEspecie}")

@@ -41,7 +41,7 @@ public class EspecieService implements EspecieInPort {
     public Especie obtenerPorId(Long idEspecie) throws EspecieNoEncontradaException, AtributosNulosException, ObjetoEnviadoNuloException {
         Validador.validarIdNull(idEspecie);
         Especie especieEncontrada = especieOutPort.obtenerPorId(idEspecie);
-        if (Validador.validarEspecieNull(especieEncontrada)) {
+        if (Validador.validarEspecie(especieEncontrada)) {
             throw new EspecieNoEncontradaException("La especie buscada por id no existe en el sistema.");
         }
         return especieEncontrada;
