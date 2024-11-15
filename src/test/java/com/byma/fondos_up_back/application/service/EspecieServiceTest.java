@@ -3,6 +3,7 @@ package com.byma.fondos_up_back.application.service;
 import com.byma.fondos_up_back.application.port.out.EspecieOutPort;
 import com.byma.fondos_up_back.application.service.exception.AtributosNulosException;
 import com.byma.fondos_up_back.application.service.exception.EspecieConIdExistenteException;
+import com.byma.fondos_up_back.application.service.exception.EspecieNoEncontradaException;
 import com.byma.fondos_up_back.application.service.exception.ObjetoEnviadoNuloException;
 import com.byma.fondos_up_back.domain.model.Especie;
 import com.byma.fondos_up_back.infrastructure.adapter.out.persistance.repository.EspecieRepository;
@@ -14,10 +15,13 @@ import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 class EspecieServiceTest {
     @InjectMocks
@@ -263,5 +267,121 @@ class EspecieServiceTest {
                 .build();
 
         assertThrows(AtributosNulosException.class, () -> especieService.crear(especie));
+    }
+
+    @Test
+    void deberiaRetornarUnaListaDeEspeciesTamanioTres_cuandoSePideListarEspecies() throws ObjetoEnviadoNuloException {
+        when(especieOutPort.listarEspecies()).thenReturn(especies);
+
+        List<Especie> listaDeEspecie = especieService.listarEspecies();
+
+        assertEquals(especies, listaDeEspecie);
+        assertEquals(3, listaDeEspecie.size());
+    }
+
+    @Test
+    void deberiaRetornarUnaListaVacia_cuandoSePideListarEspeciesYNoHayNadaGuardado() throws ObjetoEnviadoNuloException {
+        when(especieOutPort.listarEspecies()).thenReturn(Collections.emptyList());
+
+        List<Especie> listaDeEspecie = especieService.listarEspecies();
+
+        assertEquals(Collections.emptyList(), listaDeEspecie);
+        assertEquals(0, listaDeEspecie.size());
+    }
+
+    @Test
+    void deberiaRetornarUnaEspecie_cuandoSeBuscaPorId() throws ObjetoEnviadoNuloException, AtributosNulosException, EspecieNoEncontradaException {
+        when(especieOutPort.obtenerPorId(ID_ESPECIE_1)).thenReturn(especie1);
+
+        Especie especieEncontrada = especieService.obtenerPorId(ID_ESPECIE_1);
+        assertEquals(especie1, especieEncontrada);
+    }
+
+    @Test
+    void deberiaLanzarEspecieNoEncontradaException_cuandoSeBuscaUnIdQueNoEstaGuardado() throws ObjetoEnviadoNuloException, AtributosNulosException, EspecieNoEncontradaException {
+        when(especieOutPort.obtenerPorId(ID_ESPECIE_1)).thenReturn(null);
+
+        assertThrows(EspecieNoEncontradaException.class, () -> especieService.obtenerPorId(ID_ESPECIE_1));
+    }
+
+    @Test
+    void deberiaRetornarUnaEspecieActualizada_cuandoSeActualizaUnaEspecieConIdConocido() throws ObjetoEnviadoNuloException, AtributosNulosException, EspecieConIdExistenteException, EspecieNoEncontradaException {
+        Especie especieActualizada = Especie.builder()
+                .idEspecie(ID_ESPECIE_1)
+                .codigoCVSA(CODIGO_CVSA_3)
+                .denominacion(DENOMINACION_3)
+                .laminaMinima(LAMINA_MINIMA_3)
+                .precio(PRECIO_3)
+                .cafci(CAFCI_3)
+                .cuentaDeEmision(CUENTA_EMISION_3)
+                .estado(ESTADO_2)
+                .idEmisor(ID_EMISOR_3)
+                .idGerente(ID_GERENTE_3)
+                .vigencia(VIGENCIA_3)
+                .plazoDeLiquidacion(PLAZO_LIQUIDACION_3)
+                .codigoCNV(CODIGO_CNV_3)
+                .isin(ISIN_3)
+                .familiaDeFondos(FAMILIA_FONDOS_3)
+                .observaciones(OBSERVACIONES_3)
+                .movimiento(MOVIMIENTO_2)
+                .fechaAlta(FECHA_ALTA_3)
+                .build();
+
+        when(especieOutPort.existeElID(ID_ESPECIE_1)).thenReturn(true);
+        when(especieOutPort.actualizar(especie1)).thenReturn(especieActualizada);
+
+        Especie especieObtenida = especieService.actualizar(ID_ESPECIE_1, especie1);
+
+        assertEquals(especieActualizada, especieObtenida);
+    }
+
+    @Test
+    void deberiaRetornarUnaEspecieActualizada() throws ObjetoEnviadoNuloException, AtributosNulosException, EspecieConIdExistenteException, EspecieNoEncontradaException {
+        Especie especieActualizada = Especie.builder()
+                .idEspecie(ID_ESPECIE_1)
+                .codigoCVSA(CODIGO_CVSA_3)
+                .denominacion(DENOMINACION_3)
+                .laminaMinima(LAMINA_MINIMA_3)
+                .precio(PRECIO_3)
+                .cafci(CAFCI_3)
+                .cuentaDeEmision(CUENTA_EMISION_3)
+                .estado(ESTADO_2)
+                .idEmisor(ID_EMISOR_3)
+                .idGerente(ID_GERENTE_3)
+                .vigencia(VIGENCIA_3)
+                .plazoDeLiquidacion(PLAZO_LIQUIDACION_3)
+                .codigoCNV(CODIGO_CNV_3)
+                .isin(ISIN_3)
+                .familiaDeFondos(FAMILIA_FONDOS_3)
+                .observaciones(OBSERVACIONES_3)
+                .movimiento(MOVIMIENTO_2)
+                .fechaAlta(FECHA_ALTA_3)
+                .build();
+
+        when(especieOutPort.existeElID(ID_ESPECIE_1)).thenReturn(true);
+        when(especieOutPort.actualizar(especie1)).thenReturn(especieActualizada);
+
+        Especie especieObtenida = especieService.actualizar(ID_ESPECIE_1, especie1);
+
+        assertEquals(especieActualizada, especieObtenida);
+    }
+
+    @Test
+    void deberiaEliminarUnaEspecie_cuandoSeEliminaUnaEspecieConIdConocido() throws ObjetoEnviadoNuloException, AtributosNulosException, EspecieNoEncontradaException {
+        when(especieOutPort.existeElID(ID_ESPECIE_1)).thenReturn(true);
+
+        doNothing().when(especieOutPort).eliminar(ID_ESPECIE_1);
+        especieService.eliminar(ID_ESPECIE_1);
+
+        verify(especieOutPort,times(1)).eliminar(ID_ESPECIE_1);
+    }
+
+    @Test
+    void deberiaLanzarEspecieNoEncontradaException_cuandoSeEliminaUnaEspecieConIdDesconocido() throws ObjetoEnviadoNuloException, AtributosNulosException, EspecieNoEncontradaException {
+        when(especieOutPort.existeElID(ID_ESPECIE_1)).thenReturn(false);
+
+        doNothing().when(especieOutPort).eliminar(ID_ESPECIE_1);
+
+        assertThrows(EspecieNoEncontradaException.class, () -> especieService.eliminar(ID_ESPECIE_1));
     }
 }
