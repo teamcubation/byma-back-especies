@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -27,13 +27,13 @@ public class EspecieRequestDTO {
     private String estado;
     private long idEmisor;
     private long idGerente;
-    private LocalDateTime vigencia;
+    private LocalDate vigencia;
     @NotNull(message = "El plazo de liquidación no puede ser null")
-    private LocalDateTime plazoDeLiquidacion;
+    private LocalDate plazoDeLiquidacion;
     private String codigoCNV;
     private String isin;
     private String familiaDeFondos;
     private String observaciones;
     private boolean movimiento;
-    private LocalDateTime fechaAlta;
+    private LocalDate fechaAlta;
 }

@@ -13,7 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -59,12 +59,12 @@ class EspecieServiceTest {
     private static final long ID_GERENTE_1 = 2L;
     private static final long ID_GERENTE_2 = 3L;
     private static final long ID_GERENTE_3 = 4L;
-    private static final LocalDateTime VIGENCIA_1 = LocalDateTime.now().plusDays(100);
-    private static final LocalDateTime VIGENCIA_2 = LocalDateTime.now().plusDays(100);
-    private static final LocalDateTime VIGENCIA_3 = LocalDateTime.now().plusDays(50);
-    private static final LocalDateTime PLAZO_LIQUIDACION_1 = LocalDateTime.now().plusDays(5);
-    private static final LocalDateTime PLAZO_LIQUIDACION_2 = LocalDateTime.now().plusDays(25);
-    private static final LocalDateTime PLAZO_LIQUIDACION_3 = LocalDateTime.now().plusDays(7);
+    private static final LocalDate VIGENCIA_1 = LocalDate.now().plusDays(100);
+    private static final LocalDate VIGENCIA_2 = LocalDate.now().plusDays(100);
+    private static final LocalDate VIGENCIA_3 = LocalDate.now().plusDays(50);
+    private static final LocalDate PLAZO_LIQUIDACION_1 = LocalDate.now().plusDays(5);
+    private static final LocalDate PLAZO_LIQUIDACION_2 = LocalDate.now().plusDays(25);
+    private static final LocalDate PLAZO_LIQUIDACION_3 = LocalDate.now().plusDays(7);
     private static final String CODIGO_CNV_1 = "CNV1";
     private static final String CODIGO_CNV_2 = "CNV2";
     private static final String CODIGO_CNV_3 = "CNV3";
@@ -79,9 +79,9 @@ class EspecieServiceTest {
     private static final String OBSERVACIONES_3 = "Observaciones3";
     private static final boolean MOVIMIENTO_1 = true;
     private static final boolean MOVIMIENTO_2 = false;
-    private static final LocalDateTime FECHA_ALTA_1 = LocalDateTime.now();
-    private static final LocalDateTime FECHA_ALTA_2 = LocalDateTime.now();
-    private static final LocalDateTime FECHA_ALTA_3 = LocalDateTime.now();
+    private static final LocalDate FECHA_ALTA_1 = LocalDate.now();
+    private static final LocalDate FECHA_ALTA_2 = LocalDate.now();
+    private static final LocalDate FECHA_ALTA_3 = LocalDate.now();
 
     private Especie especie1;
     private Especie especie2;

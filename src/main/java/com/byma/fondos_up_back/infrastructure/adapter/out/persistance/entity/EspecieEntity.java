@@ -3,7 +3,7 @@ package com.byma.fondos_up_back.infrastructure.adapter.out.persistance.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity(name = "especie")
 @Table(name = "especies")
@@ -26,12 +26,12 @@ public class EspecieEntity {
     private String estado;
     private long idEmisor;
     private long idGerente;
-    private LocalDateTime vigencia;
-    private LocalDateTime plazoDeLiquidacion;
+    private LocalDate vigencia;
+    private LocalDate plazoDeLiquidacion;
     private String codigoCNV;
     private String isin;
     private String familiaDeFondos;
     private String observaciones;
     private boolean movimiento;
-    private LocalDateTime fechaAlta;
+    private LocalDate fechaAlta;
 }

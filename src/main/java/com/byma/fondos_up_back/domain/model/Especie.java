@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -22,12 +22,12 @@ public class Especie {
     private String estado;
     private long idEmisor;
     private long idGerente;
-    private LocalDateTime vigencia;
-    private LocalDateTime plazoDeLiquidacion;
+    private LocalDate vigencia;
+    private LocalDate plazoDeLiquidacion;
     private String codigoCNV;
     private String isin;
     private String familiaDeFondos;
     private String observaciones;
     private boolean movimiento;
-    private LocalDateTime fechaAlta;
+    private LocalDate fechaAlta;
 }

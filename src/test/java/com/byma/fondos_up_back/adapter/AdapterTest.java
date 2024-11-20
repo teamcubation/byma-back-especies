@@ -13,7 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -43,7 +43,7 @@ public class AdapterTest {
                 .idEspecie(ID1_ESPECIE)
                 .codigoCVSA(CODIGO_CVSA)
                 .denominacion(ESPECIE_DE_PRUEBA)
-                .plazoDeLiquidacion(LocalDateTime.parse(DATE))
+                .plazoDeLiquidacion(LocalDate.parse(DATE))
                 .build();
 
     }
@@ -53,7 +53,7 @@ public class AdapterTest {
                 .idEspecie(ID2_ESPECIE)
                 .codigoCVSA(CODIGO_CVSA)
                 .denominacion(ESPECIE_DE_PRUEBA)
-                .plazoDeLiquidacion(LocalDateTime.parse(DATE))
+                .plazoDeLiquidacion(LocalDate.parse(DATE))
                 .build();
     }
 
@@ -62,7 +62,7 @@ public class AdapterTest {
                 .idEspecie(ID1_ESPECIE)
                 .codigoCVSA(CODIGO_CVSA)
                 .denominacion(ESPECIE_DE_PRUEBA)
-                .plazoDeLiquidacion(LocalDateTime.parse(DATE))
+                .plazoDeLiquidacion(LocalDate.parse(DATE))
                 .build();
     }
 

@@ -21,7 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -58,7 +58,7 @@ public class ControllerTest {
                 .idEspecie(ID1_ESPECIE)
                 .codigoCVSA(CODIGO_CVSA)
                 .denominacion(ESPECIE_DE_PRUEBA)
-                .plazoDeLiquidacion(LocalDateTime.parse(DATE))
+                .plazoDeLiquidacion(LocalDate.parse(DATE))
                 .build();
 
     }
@@ -67,7 +67,7 @@ public class ControllerTest {
                 .idEspecie(ID2_ESPECIE)
                 .codigoCVSA(CODIGO_CVSA)
                 .denominacion(ESPECIE_DE_PRUEBA)
-                .plazoDeLiquidacion(LocalDateTime.parse(DATE))
+                .plazoDeLiquidacion(LocalDate.parse(DATE))
                 .build();
     }
     private EspecieRequestDTO mockEspecieRequestDTO() {
@@ -75,7 +75,7 @@ public class ControllerTest {
                 .idEspecie(ID1_ESPECIE)
                 .codigoCVSA(CODIGO_CVSA)
                 .denominacion(ESPECIE_DE_PRUEBA)
-                .plazoDeLiquidacion(LocalDateTime.parse(DATE))
+                .plazoDeLiquidacion(LocalDate.parse(DATE))
                 .build();
     }
     private EspecieResponseDTO mockEspecieResponseDTO() {
@@ -83,7 +83,7 @@ public class ControllerTest {
                 .idEspecie(ID1_ESPECIE)
                 .codigoCVSA(CODIGO_CVSA)
                 .denominacion(ESPECIE_DE_PRUEBA)
-                .plazoDeLiquidacion(LocalDateTime.parse(DATE))
+                .plazoDeLiquidacion(LocalDate.parse(DATE))
                 .build();
     }
     private EspecieResponseDTO mockEspecieResponseDTO2() {
@@ -91,7 +91,7 @@ public class ControllerTest {
                 .idEspecie(ID2_ESPECIE)
                 .codigoCVSA(CODIGO_CVSA)
                 .denominacion(ESPECIE_DE_PRUEBA)
-                .plazoDeLiquidacion(LocalDateTime.parse(DATE))
+                .plazoDeLiquidacion(LocalDate.parse(DATE))
                 .build();
     }
     private List<EspecieResponseDTO> mockEspecieResponseDTOList() {
