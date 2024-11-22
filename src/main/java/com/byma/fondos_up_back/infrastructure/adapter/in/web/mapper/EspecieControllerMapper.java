@@ -14,7 +14,6 @@ public class EspecieControllerMapper {
     public static Especie especieRequestDtoAEspecie(EspecieRequestDTO especieRequestDTO) throws ObjetoEnviadoNuloException {
         Validador.validarObjetoNotNull(especieRequestDTO);
         return Especie.builder()
-                .idEspecie(especieRequestDTO.getIdEspecie())
                 .codigoCVSA(especieRequestDTO.getCodigoCVSA())
                 .denominacion(especieRequestDTO.getDenominacion())
                 .laminaMinima(especieRequestDTO.getLaminaMinima())
@@ -30,7 +29,7 @@ public class EspecieControllerMapper {
                 .isin(especieRequestDTO.getIsin())
                 .familiaDeFondos(especieRequestDTO.getFamiliaDeFondos())
                 .observaciones(especieRequestDTO.getObservaciones())
-                .movimiento(especieRequestDTO.isMovimiento())
+                .idMoneda(especieRequestDTO.getIdMoneda())
                 .fechaAlta(especieRequestDTO.getFechaAlta())
                 .build();
     }
@@ -54,7 +53,7 @@ public class EspecieControllerMapper {
                 .isin(especie.getIsin())
                 .familiaDeFondos(especie.getFamiliaDeFondos())
                 .observaciones(especie.getObservaciones())
-                .movimiento(especie.isMovimiento())
+                .idMoneda(especie.getIdMoneda())
                 .fechaAlta(especie.getFechaAlta())
                 .build();
     }

@@ -70,7 +70,6 @@ A continuación, algunos ejemplos para interactuar con la API utilizando Postman
   "isin": "ISIN12345",
   "familiaDeFondos": "Fondos Generales",
   "observaciones": "Esta es una especie de prueba",
-  "movimiento": true,
   "fechaAlta": "2024-11-01T00:00:00"
 }
 ```
@@ -104,7 +103,7 @@ A continuación, algunos ejemplos para interactuar con la API utilizando Postman
   "isin": "ISIN12345",
   "familiaDeFondos": "Fondos Generales",
   "observaciones": "Esta es una especie de prueba",
-  "movimiento": true,
+  "idMoneda": 123,
   "fechaAlta": "2024-11-01T00:00:00"
 }
 ```

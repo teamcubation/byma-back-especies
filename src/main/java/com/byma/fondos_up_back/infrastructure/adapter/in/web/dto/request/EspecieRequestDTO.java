@@ -12,8 +12,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EspecieRequestDTO {
-    @NotNull(message = "El id de la especie no puede ser null")
-    private Long idEspecie;
     @NotNull(message = "El codigo CVSA no puede ser null")
     private String codigoCVSA;
     @NotNull(message = "La denominación no puede ser null")
@@ -34,6 +32,6 @@ public class EspecieRequestDTO {
     private String isin;
     private String familiaDeFondos;
     private String observaciones;
-    private boolean movimiento;
+    private long idMoneda;
     private LocalDate fechaAlta;
 }

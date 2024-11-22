@@ -31,7 +31,7 @@ public class EspecieMapper {
                 .isin(especie.getIsin())
                 .familiaDeFondos(especie.getFamiliaDeFondos())
                 .observaciones(especie.getObservaciones())
-                .movimiento(especie.isMovimiento())
+                .idMoneda(especie.getIdMoneda())
                 .fechaAlta(especie.getFechaAlta())
                 .build();
     }
@@ -56,7 +56,7 @@ public class EspecieMapper {
                 .isin(especieEntity.getIsin())
                 .familiaDeFondos(especieEntity.getFamiliaDeFondos())
                 .observaciones(especieEntity.getObservaciones())
-                .movimiento(especieEntity.isMovimiento())
+                .idMoneda(especieEntity.getIdMoneda())
                 .fechaAlta(especieEntity.getFechaAlta())
                 .build();
     }

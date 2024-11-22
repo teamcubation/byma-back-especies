@@ -1,23 +1,18 @@
-package com.byma.fondos_up_back.infrastructure.adapter.out.persistance.entity;
+package com.byma.fondos_up_back.domain.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Entity(name = "especie")
-@Table(name = "especies")
-@Getter
-@Setter
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class EspecieEntity {
-
-    @Id
-    @Column(unique = true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idEspecie;
+public class Especie {
+    private long idEspecie;
     private String codigoCVSA;
     private String denominacion;
     private int laminaMinima;
@@ -33,6 +28,6 @@ public class EspecieEntity {
     private String isin;
     private String familiaDeFondos;
     private String observaciones;
-    private long idMoneda;
+    private boolean movimiento;
     private LocalDate fechaAlta;
 }
