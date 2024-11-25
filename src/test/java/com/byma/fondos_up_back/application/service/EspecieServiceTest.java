@@ -6,7 +6,6 @@ import com.byma.fondos_up_back.application.service.exception.EspecieConIdExisten
 import com.byma.fondos_up_back.application.service.exception.EspecieNoEncontradaException;
 import com.byma.fondos_up_back.application.service.exception.ObjetoEnviadoNuloException;
 import com.byma.fondos_up_back.domain.model.Especie;
-import com.byma.fondos_up_back.infrastructure.adapter.out.persistance.repository.EspecieRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -77,8 +76,7 @@ class EspecieServiceTest {
     private static final String OBSERVACIONES_1 = "Observaciones1";
     private static final String OBSERVACIONES_2 = "Observaciones2";
     private static final String OBSERVACIONES_3 = "Observaciones3";
-    private static final boolean MOVIMIENTO_1 = true;
-    private static final boolean MOVIMIENTO_2 = false;
+    private static final long ID_MONEDA = 1L;
     private static final LocalDate FECHA_ALTA_1 = LocalDate.now();
     private static final LocalDate FECHA_ALTA_2 = LocalDate.now();
     private static final LocalDate FECHA_ALTA_3 = LocalDate.now();
@@ -110,7 +108,7 @@ class EspecieServiceTest {
             .isin(ISIN_1)
             .familiaDeFondos(FAMILIA_FONDOS_1)
             .observaciones(OBSERVACIONES_1)
-            .movimiento(MOVIMIENTO_1)
+            .idMoneda(ID_MONEDA)
             .fechaAlta(FECHA_ALTA_1)
             .build();
 
@@ -131,7 +129,7 @@ class EspecieServiceTest {
             .isin(ISIN_2)
             .familiaDeFondos(FAMILIA_FONDOS_2)
             .observaciones(OBSERVACIONES_2)
-            .movimiento(MOVIMIENTO_2)
+            .idMoneda(ID_MONEDA)
             .fechaAlta(FECHA_ALTA_2)
             .build();
 
@@ -152,7 +150,7 @@ class EspecieServiceTest {
                 .isin(ISIN_3)
                 .familiaDeFondos(FAMILIA_FONDOS_3)
                 .observaciones(OBSERVACIONES_3)
-                .movimiento(MOVIMIENTO_1)
+                .idMoneda(ID_MONEDA)
                 .fechaAlta(FECHA_ALTA_3)
                 .build();
 
@@ -182,7 +180,7 @@ class EspecieServiceTest {
         assertEquals(especie1.getCodigoCNV(), especieCreada.getCodigoCNV());
         assertEquals(especie1.getIsin(), especieCreada.getIsin());
         assertEquals(especie1.getObservaciones(), especieCreada.getObservaciones());
-        assertEquals(especie1.isMovimiento(), especieCreada.isMovimiento());
+        assertEquals(especie1.getIdMoneda(), especieCreada.getIdMoneda());
         assertEquals(especie1.getFechaAlta(), especieCreada.getFechaAlta());
     }
 
@@ -210,7 +208,7 @@ class EspecieServiceTest {
                 .isin(ISIN_1)
                 .familiaDeFondos(FAMILIA_FONDOS_1)
                 .observaciones(OBSERVACIONES_1)
-                .movimiento(MOVIMIENTO_1)
+                .idMoneda(ID_MONEDA)
                 .fechaAlta(FECHA_ALTA_2)
                 .build();
 
@@ -236,7 +234,7 @@ class EspecieServiceTest {
                 .isin(ISIN_1)
                 .familiaDeFondos(FAMILIA_FONDOS_1)
                 .observaciones(OBSERVACIONES_1)
-                .movimiento(MOVIMIENTO_1)
+                .idMoneda(ID_MONEDA)
                 .fechaAlta(FECHA_ALTA_1)
                 .build();
 
@@ -262,7 +260,7 @@ class EspecieServiceTest {
                 .isin(ISIN_1)
                 .familiaDeFondos(FAMILIA_FONDOS_1)
                 .observaciones(OBSERVACIONES_1)
-                .movimiento(MOVIMIENTO_1)
+                .idMoneda(ID_MONEDA)
                 .fechaAlta(FECHA_ALTA_1)
                 .build();
 
@@ -323,7 +321,7 @@ class EspecieServiceTest {
                 .isin(ISIN_3)
                 .familiaDeFondos(FAMILIA_FONDOS_3)
                 .observaciones(OBSERVACIONES_3)
-                .movimiento(MOVIMIENTO_2)
+                .idMoneda(ID_MONEDA)
                 .fechaAlta(FECHA_ALTA_3)
                 .build();
 
@@ -354,7 +352,7 @@ class EspecieServiceTest {
                 .isin(ISIN_3)
                 .familiaDeFondos(FAMILIA_FONDOS_3)
                 .observaciones(OBSERVACIONES_3)
-                .movimiento(MOVIMIENTO_2)
+                .idMoneda(ID_MONEDA)
                 .fechaAlta(FECHA_ALTA_3)
                 .build();
 

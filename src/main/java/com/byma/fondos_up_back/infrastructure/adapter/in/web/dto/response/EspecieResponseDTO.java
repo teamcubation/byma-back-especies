@@ -29,6 +29,6 @@ public class EspecieResponseDTO {
     private String isin;
     private String familiaDeFondos;
     private String observaciones;
-    private boolean movimiento;
+    private long idMoneda;
     private LocalDate fechaAlta;
 }
