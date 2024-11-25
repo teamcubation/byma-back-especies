@@ -11,6 +11,7 @@ import com.byma.fondos_up_back.domain.model.Especie;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -27,6 +28,7 @@ public class EspecieService implements EspecieInPort {
     public Especie crear(Especie especie) throws EspecieConIdExistenteException, ObjetoEnviadoNuloException, AtributosNulosException {
         Validador.validarEspecie(especie);
         validarEspecieNoExista(especie.getIdEspecie());
+        especie.setFechaAlta(LocalDate.now());
         return especieOutPort.crear(especie);
     }
 
