@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.servers.ServerVariable;
         servers = {
                 @Server(
                         description = "DEV SERVER",
-                        url = "http://localhost:8080",
+                        url = "http://localhost:10002",
                         variables = {
                                 @ServerVariable(name = "port", defaultValue = "${server.port}")
                         }

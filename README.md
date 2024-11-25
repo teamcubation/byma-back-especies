@@ -38,12 +38,12 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-Por defecto, la aplicación se ejecuta en `http://localhost:8080`. Puedes acceder a la API a través de esta URL.
+Por defecto, la aplicación se ejecuta en `http://localhost:10002`. Puedes acceder a la API a través de esta URL.
 
 ### 4. Acceder a Swagger UI
 Una vez que la aplicación esté en ejecución, puedes ver la documentación de la API e interactuar con ella a través de Swagger UI:
 ```bash
-http://localhost:8080/swagger-ui/index.html
+http://localhost:10002/swagger-ui/index.html
 ```
 
 ### 5. Ejemplos de Solicitudes a la API
@@ -51,7 +51,7 @@ A continuación, algunos ejemplos para interactuar con la API utilizando Postman
 
 1. Crear un Especie (POST /api/v1/especies)
 
-**POST** `http://localhost:8080/api/v1/especies`
+**POST** `http://localhost:10002/api/v1/especies`
 ```json
 { 
   "idEspecie": 123456,
@@ -76,15 +76,15 @@ A continuación, algunos ejemplos para interactuar con la API utilizando Postman
 
 2. Obtener todas las especies (GET /api/v1/especies)
 
-**GET** `http://localhost:8080/api/v1/especies`
+**GET** `http://localhost:10002/api/v1/especies`
 
 3. Obtener especie por ID (GET /api/v1/especies/{id})
 
-**GET** `http://localhost:8080/api/v1/especies/{id}`
+**GET** `http://localhost:10002/api/v1/especies/{id}`
 
 4. Actualizar un Especie (PUT /api/v1/especies/{id})
 
-**PUT** `http://localhost:8080/api/v1/especies/{id}`
+**PUT** `http://localhost:10002/api/v1/especies/{id}`
 ```json
 {
   "idEspecie": 123456,
@@ -110,4 +110,4 @@ A continuación, algunos ejemplos para interactuar con la API utilizando Postman
 
 5. Eliminar un Especie (DELETE /api/v1/especies/{id})
 
-**DELETE** `http://localhost:8080/api/v1/especies/{id}`
+**DELETE** `http://localhost:10002/api/v1/especies/{id}`
