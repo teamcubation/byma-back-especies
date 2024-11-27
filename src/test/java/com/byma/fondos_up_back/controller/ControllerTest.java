@@ -31,11 +31,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class ControllerTest {
+    public static final long ID0_ESPECIE = 0L;
     public static final long ID2_ESPECIE = 2L;
     public static final String CODIGO_CVSA = "DEF456";
     public static final long ID1_ESPECIE = 1L;
     public static final String ESPECIE_DE_PRUEBA = "Especie de prueba";
-    public static final String DATE = "2024-12-01T00:00:00";
+    public static final LocalDate DATE_1 = LocalDate.now();
+
     @InjectMocks
     private EspecieController especieController;
 
@@ -58,7 +60,7 @@ public class ControllerTest {
                 .idEspecie(ID1_ESPECIE)
                 .codigoCVSA(CODIGO_CVSA)
                 .denominacion(ESPECIE_DE_PRUEBA)
-                .plazoDeLiquidacion(LocalDate.parse(DATE))
+                .plazoDeLiquidacion(DATE_1)
                 .build();
 
     }
@@ -67,15 +69,15 @@ public class ControllerTest {
                 .idEspecie(ID2_ESPECIE)
                 .codigoCVSA(CODIGO_CVSA)
                 .denominacion(ESPECIE_DE_PRUEBA)
-                .plazoDeLiquidacion(LocalDate.parse(DATE))
+                .plazoDeLiquidacion(DATE_1)
                 .build();
     }
     private EspecieRequestDTO mockEspecieRequestDTO() {
         return EspecieRequestDTO.builder()
-                .idEspecie(ID1_ESPECIE)
+                //.idEspecie(ID1_ESPECIE)
                 .codigoCVSA(CODIGO_CVSA)
                 .denominacion(ESPECIE_DE_PRUEBA)
-                .plazoDeLiquidacion(LocalDate.parse(DATE))
+                .plazoDeLiquidacion(DATE_1)
                 .build();
     }
     private EspecieResponseDTO mockEspecieResponseDTO() {
@@ -83,15 +85,15 @@ public class ControllerTest {
                 .idEspecie(ID1_ESPECIE)
                 .codigoCVSA(CODIGO_CVSA)
                 .denominacion(ESPECIE_DE_PRUEBA)
-                .plazoDeLiquidacion(LocalDate.parse(DATE))
+                .plazoDeLiquidacion(DATE_1)
                 .build();
     }
     private EspecieResponseDTO mockEspecieResponseDTO2() {
         return EspecieResponseDTO.builder()
-                .idEspecie(ID2_ESPECIE)
+                //.idEspecie(ID2_ESPECIE)
                 .codigoCVSA(CODIGO_CVSA)
                 .denominacion(ESPECIE_DE_PRUEBA)
-                .plazoDeLiquidacion(LocalDate.parse(DATE))
+                .plazoDeLiquidacion(DATE_1)
                 .build();
     }
     private List<EspecieResponseDTO> mockEspecieResponseDTOList() {
@@ -107,15 +109,14 @@ public class ControllerTest {
     }
     @Test
     void whenCreateEspecie_thenReturnEspecie() throws Exception {
-        Especie especie = mockEspecie1();
         EspecieRequestDTO especieRequestDTO = mockEspecieRequestDTO();
         EspecieResponseDTO especieResponseDTO = mockEspecieResponseDTO();
-        when(especieInPort.crear(especie)).thenReturn(especie);
+        Especie especieMapeada = EspecieControllerMapper.especieRequestDtoAEspecie(especieRequestDTO);
+        when(especieInPort.crear(especieMapeada)).thenReturn(mockEspecie1());
         ResponseEntity<EspecieResponseDTO> result = especieController.crear(especieRequestDTO);
         assertEquals(200, result.getStatusCodeValue());
         assertEquals(especieResponseDTO, result.getBody());
-        verify(especieInPort, times(1)).crear(especie);
-
+        verify(especieInPort, times(1)).crear(especieMapeada);
     }
     @Test
     void whenCreateEspecie_thenReturnAtributosNulosException() throws ObjetoEnviadoNuloException, AtributosNulosException, EspecieConIdExistenteException {
@@ -155,11 +156,12 @@ public class ControllerTest {
         Especie especie = mockEspecie1();
         EspecieRequestDTO especieRequestDTO = mockEspecieRequestDTO();
         EspecieResponseDTO especieResponseDTO = mockEspecieResponseDTO();
-        when(especieInPort.actualizar(ID1_ESPECIE, especie)).thenReturn(especie);
+        Especie especieMapeada = EspecieControllerMapper.especieRequestDtoAEspecie(especieRequestDTO);
+        when(especieInPort.actualizar(ID1_ESPECIE, especieMapeada)).thenReturn(especie);
         ResponseEntity<EspecieResponseDTO> result = especieController.actualizar(ID1_ESPECIE, especieRequestDTO);
         assertEquals(200, result.getStatusCodeValue());
         assertEquals(especieResponseDTO, result.getBody());
-        verify(especieInPort, times(1)).actualizar(ID1_ESPECIE, especie);
+        verify(especieInPort, times(1)).actualizar(ID1_ESPECIE, especieMapeada);
     }
     @Test
     void whenUpdateEspecie_thenReturnAtributosNulosException() throws ObjetoEnviadoNuloException, AtributosNulosException, EspecieConIdExistenteException, EspecieNoEncontradaException {

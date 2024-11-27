@@ -26,6 +26,8 @@ public class AdapterTest {
     public static final long ID1_ESPECIE = 1L;
     public static final String ESPECIE_DE_PRUEBA = "Especie de prueba";
     public static final String DATE = "2024-12-01T00:00:00";
+    public static final LocalDate DATE_1 = LocalDate.now();
+    
     @InjectMocks
     private EspecieOutAdapter especieOutAdapter;
 
@@ -43,7 +45,7 @@ public class AdapterTest {
                 .idEspecie(ID1_ESPECIE)
                 .codigoCVSA(CODIGO_CVSA)
                 .denominacion(ESPECIE_DE_PRUEBA)
-                .plazoDeLiquidacion(LocalDate.parse(DATE))
+                .plazoDeLiquidacion(DATE_1)
                 .build();
 
     }
@@ -53,7 +55,7 @@ public class AdapterTest {
                 .idEspecie(ID2_ESPECIE)
                 .codigoCVSA(CODIGO_CVSA)
                 .denominacion(ESPECIE_DE_PRUEBA)
-                .plazoDeLiquidacion(LocalDate.parse(DATE))
+                .plazoDeLiquidacion(DATE_1)
                 .build();
     }
 
@@ -62,7 +64,7 @@ public class AdapterTest {
                 .idEspecie(ID1_ESPECIE)
                 .codigoCVSA(CODIGO_CVSA)
                 .denominacion(ESPECIE_DE_PRUEBA)
-                .plazoDeLiquidacion(LocalDate.parse(DATE))
+                .plazoDeLiquidacion(DATE_1)
                 .build();
     }
 
